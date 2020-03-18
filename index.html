@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corona Virus Data</title>
+    <!-- CDN Links -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h2>
+                        Corona Virus Data
+                    </h2>
+                    <p>
+                        This site will display all pertinent data about the corona virus for the world and a specific country of your choosing.
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6-sm-12">
+                        <div class="card">
+                            <h5 class="card-header">
+                                World Stats
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <h4>Total World Cases</h4>
+                                    <ul id="worldStats">
+                                        <li id="totalWorldCases"></li>
+                                        <li id="totalWorldActiveCases"></li>
+                                        <li id="totalWorldRecoverd"></li>
+                                        <li id="totalWorldDeaths"></li>
+                                        <li id="totalWorldUnresolved"></li>
+                                    </ul>
+                                    <h4>Today Only World Cases</h4>
+                                    <ul id="todayWorldStats">
+                                        <li id="totalWorldNewToday"></li>
+                                        <li id="totalWorldDeathsToday"></li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6-sm-12">
+                        <div class="card">
+                            <h5 class="card-header">
+                                Country Status
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Card content
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Files Links -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/js/widget.js"></script>
+</body>
+</html>
