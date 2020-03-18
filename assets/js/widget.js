@@ -7,8 +7,6 @@ function callAPIWorld () {
     }).then(function(response) {
         var data = response.results[0]
 
-        console.log(data)
-
         $("#totalWorldCases").text("Total Cases: " + data.total_cases)
         $("#totalWorldActiveCases").text("Active Cases: " + data.total_active_cases)
         $("#totalWorldRecoverd").text("Recovered: " + data.total_recovered)
@@ -22,6 +20,19 @@ function callAPIWorld () {
 
 callAPIWorld()
 
+var newsArray = []
+
+function countProperties(obj) {
+    var count = 0;
+
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            ++count;
+    }
+
+    newsArray[0] = count - 1
+}
+
 function callAPICountry() {
     var country = $("#countrySelector option:selected").val()
     var countryQuery = "https://thevirustracker.com/free-api?countryTotal=" + country
@@ -30,12 +41,26 @@ function callAPICountry() {
         url: countryQuery,
         method: "GET"
     }).then(function(response) {
-
-        console.log(response)
                 
-        var data = response.results[0]
+        var data = response.countrydata[0]
+        var news = response.countrynewsitems[0]
 
-        // console.log(data)
+        $("#totalCountryCases").text("Total Cases: " + data.total_cases)
+        $("#totalCountryActiveCases").text("Active Cases: " + data.total_active_cases)
+        $("#totalCountryRecoverd").text("Recovered: " + data.total_recovered)
+        $("#totalCountryDeaths").text("Deaths: " + data.total_deaths)
+        $("#totalCountryUnresolved").text("Unresolved: " + data.total_unresolved)
+        $("#totalCountryNewToday").text("New Cases Today: " + data.total_new_cases_today)
+        $("#totalCountryDeathsToday").text("New Deaths Today: " + data.total_new_deaths_today)
+
+        countProperties(news)
+
+        var artId = newsArray[0]
+
+        for (let i = 0; i < 30; i++) {
+            console.log(news[artId]) // push news articles to the index page
+            artId--
+        }
 
     })
 }

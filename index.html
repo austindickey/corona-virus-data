@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="jumbotron">
+                <div class="jumbotron text-center">
                     <h2>
                         Corona Virus Data
                     </h2>
@@ -22,8 +22,65 @@
                         This site will display all pertinent data about the corona virus for the world and a specific country of your choosing.
                     </p>
                 </div>
+                <div class="row" id="selectBar">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <select class="custom-select" id="countrySelector" aria-label="Example select with button addon">
+                                <option selected>Choose Your Country</option>
+                                <option value="US">USA</option>
+                                <option value="AF">Afghanistan</option>
+                                <option value="AL">Albania</option>
+                                <option value="DZ">Algeria</option>
+                                <option value="AO">Angola</option>
+                                <option value="AR">Argentina</option>
+                                <option value="AM">Armenia</option>
+                                <option value="AU">Australia</option>
+                                <option value="AT">Austria</option>
+                                <option value="AZ">Azerbaijan</option>
+                                <option value="BS">Bahamas</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="BY">Belarus</option>
+                                <option value="BE">Belgium</option>
+                                <option value="BZ">Belize</option>
+                                <option value="BJ">Benin</option>
+                                <option value="BT">Bhutan</option>
+                                <option value="BO">Bolivia</option>
+                                <option value="BA">Bosnia</option>
+                                <option value="BW">Botswana</option>
+                                <option value="BR">Brazil</option>
+                                <option value="BN">Brunei Darussalam</option>
+                                <option value="BG">Bulgaria</option>
+                                <option value="BF">Burkina Faso</option>
+                                <option value="BI">Burundi</option>
+                                <option value="KH">Cambodia</option>
+                                <option value="CM">Cameroon</option>
+                                <option value="CA">Canada</option>
+                                <option value="CI">Ivory Coast</option>
+                                <option value="CF">Central African Republic</option>
+                                <option value="TD">Chad</option>
+                                <option value="CL">Chile</option>
+                                <option value="CN">China</option>
+                                <option value="CO">Colombia</option>
+                                <option value="CG">Congo</option>
+                                <option value="CD">Democratic Republic of Congo</option>
+                                <option value="CR">Costa Rica</option>
+                                <option value="HR">Croatia</option>
+                                <option value="CU">Cuba</option>
+                                <option value="CY">Cyprus</option>
+                                <option value="CZ">Czechia</option>
+                                <option value="DK">Denmark</option>
+                                <!-- Add more countries below -->
+                            </select>
+                            <div class="input-group-append">
+                                <button id="submit" class="btn btn-outline-secondary" type="button">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
                 <div class="row">
-                    <div class="col-md-6-sm-12">
+                    <div class="col-md-6">
                         <div class="card">
                             <h5 class="card-header">
                                 World Stats
@@ -45,63 +102,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6-sm-12">
+                    <div class="col-md-6">
                         <div class="card">
                             <h5 class="card-header">
-                                Country Status
+                                Country Stats
                             </h5>
                             <div class="card-body">
-                                <div class="input-group">
-                                    <select class="custom-select" id="countrySelector" aria-label="Example select with button addon">
-                                        <option selected>Choose Your Country</option>
-                                        <option value="US">USA</option>
-                                        <option value="AF">Afghanistan</option>
-                                        <option value="AL">Albania</option>
-                                        <option value="DZ">Algeria</option>
-                                        <option value="AO">Angola</option>
-                                        <option value="AR">Argentina</option>
-                                        <option value="AM">Armenia</option>
-                                        <option value="AU">Australia</option>
-                                        <option value="AT">Austria</option>
-                                        <option value="AZ">Azerbaijan</option>
-                                        <option value="BS">Bahamas</option>
-                                        <option value="BD">Bangladesh</option>
-                                        <option value="BY">Belarus</option>
-                                        <option value="BE">Belgium</option>
-                                        <option value="BZ">Belize</option>
-                                        <option value="BJ">Benin</option>
-                                        <option value="BT">Bhutan</option>
-                                        <option value="BO">Bolivia</option>
-                                        <option value="BA">Bosnia</option>
-                                        <option value="BW">Botswana</option>
-                                        <option value="BR">Brazil</option>
-                                        <option value="BN">Brunei Darussalam</option>
-                                        <option value="BG">Bulgaria</option>
-                                        <option value="BF">Burkina Faso</option>
-                                        <option value="BI">Burundi</option>
-                                        <option value="KH">Cambodia</option>
-                                        <option value="CM">Cameroon</option>
-                                        <option value="CA">Canada</option>
-                                        <option value="CI">Ivory Coast</option>
-                                        <option value="CF">Central African Republic</option>
-                                        <option value="TD">Chad</option>
-                                        <option value="CL">Chile</option>
-                                        <option value="CN">China</option>
-                                        <option value="CO">Colombia</option>
-                                        <option value="CG">Congo</option>
-                                        <option value="CD">Democratic Republic of Congo</option>
-                                        <option value="CR">Costa Rica</option>
-                                        <option value="HR">Croatia</option>
-                                        <option value="CU">Cuba</option>
-                                        <option value="CY">Cyprus</option>
-                                        <option value="CZ">Czechia</option>
-                                        <option value="DK">Denmark</option>
-                                        <!-- Add more countries below -->
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button id="submit" class="btn btn-outline-secondary" type="button">Submit</button>
-                                    </div>
-                                </div>
+                                <h4>Total Country Cases</h4>
+                                <ul id="countryStats">
+                                    <li id="totalCountryCases"></li>
+                                    <li id="totalCountryActiveCases"></li>
+                                    <li id="totalCountryRecoverd"></li>
+                                    <li id="totalCountryDeaths"></li>
+                                    <li id="totalCountryUnresolved"></li>
+                                </ul>
+                                <h4>Today Only Country Cases</h4>
+                                <ul id="todayCountryStats">
+                                    <li id="totalCountryNewToday"></li>
+                                    <li id="totalCountryDeathsToday"></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
