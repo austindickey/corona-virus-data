@@ -58,7 +58,26 @@ function callAPICountry() {
         var artId = newsArray[0]
 
         for (let i = 0; i < 30; i++) {
-            console.log(news[artId]) // push news articles to the index page
+            var current = news[artId]
+            console.log(current) // push news articles to the index page
+
+            console.log(current.image)
+
+            var containerDiv = $("<div>")
+            containerDiv.addClass("newsArticle")
+            var newImg = $("<img>")
+            newImg.attr("src", current.image)
+            newImg.addClass("newsPics")
+            var title = $("<h3>")
+            title.text("<a href='" + current.url + "' target='_blank'>" + current.title + "</a>")
+            var time = $("<p>")
+            time.text("<span>" + current.time + "</span>")
+
+            containerDiv.append(newImg)
+            containerDiv.append(title)
+            containerDiv.append(time)
+            $("#newsStories").append(containerDiv)
+
             artId--
         }
 
