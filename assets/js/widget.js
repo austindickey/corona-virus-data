@@ -1,3 +1,15 @@
+function callTimeline () {
+    var timelineQuery = "https://thevirustracker.com/timeline/map-data.json"
+
+    $.ajax({
+        url: timelineQuery,
+        method: "GET"
+    }).then(function(response) {
+         console.log(response)
+
+    })
+}
+
 function callAPIWorld () {
     var worldQuery = "https://thevirustracker.com/free-api?global=stats"
 
@@ -6,9 +18,7 @@ function callAPIWorld () {
         method: "GET"
     }).then(function(response) {
         var data = response.results[0]
-         console.log(response);
          
-
         $("#totalWorldCases").text("Total Cases: " + data.total_cases)
         $("#totalWorldActiveCases").text("Active Cases: " + data.total_active_cases)
         $("#totalWorldRecoverd").text("Recovered: " + data.total_recovered)
@@ -16,6 +26,8 @@ function callAPIWorld () {
         $("#totalWorldUnresolved").text("Unresolved: " + data.total_unresolved)
         $("#totalWorldNewToday").text("New Cases Today: " + data.total_new_cases_today)
         $("#totalWorldDeathsToday").text("New Deaths Today: " + data.total_new_deaths_today)
+
+        callTimeline()
 
     })
 }
@@ -75,7 +87,7 @@ function callAPICountry() {
             time.html("<span>" + current.time + "</span>")
 
             containerDiv.append(newImg)
-            containerDiv.append(title)
+            containerDiv.append(newLink)
             containerDiv.append(time)
             $("#newsStories").append(containerDiv)
 
