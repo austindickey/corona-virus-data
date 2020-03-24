@@ -1,15 +1,71 @@
-function callTimeline () {
-    var timelineQuery = "https://thevirustracker.com/timeline/map-data.json"
+// Timeline data is not coming back from the virus tracker
 
-    $.ajax({
-        url: timelineQuery,
-        method: "GET"
-    }).then(function(response) {
-         console.log(response)
+// function callTimeline () {
+//     var timelineQuery = "https://thevirustracker.com/timeline/map-data.json"
 
-    })
+//     $.ajax({
+//         url: timelineQuery,
+//         method: "GET"
+//     }).then(function(response) {
+//          console.log(response)
+
+//     })
+// }
+
+// Get today's date
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0')
+var mm = String(today.getMonth() + 1).padStart(2, '0')
+var yyyy = today.getFullYear()
+
+today = yyyy + mm + dd
+var pageNum = 0
+
+function callNews() {
+    if (pageNum < 3) {
+        var apiKey = "87dGY4YaOYC6nGcdiLJJKwBEW1ZTr0YW"
+        var newsQuery = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=corona+virus&begin_date=20191201&end_date=" + today + "&page=" + pageNum + "&sort=newest&api-key=" + apiKey
+
+        $.ajax({
+            url: newsQuery,
+            method: "GET"
+        }).then(function(response) {
+            var data = response.response.docs
+            console.log(data)
+
+            for (let i = 0; i < data.length; i++) {
+                // create master article div
+                var containerDiv = $("<div>")
+                containerDiv.addClass("newsArticle")
+                // create a link with the article title as the contents
+                var newLink = $("<a>")
+                newLink.attr("href", data[i].web_url)
+                newLink.attr("target", "_blank")
+                newLink.html("<h3>" + data[i].headline.main + "</h3>")
+                // create a paragraph with the publication date and article source
+                var newP = $("<p>")
+                var date = data[i].pub_date
+                var splitDate = date.split("T")
+                newP.append("Publish Date: <span>" + splitDate[0] + "</span><br>")
+                newP.append("Source: <span>" + data[i].source + "</span>")
+                // create a paragraph with the article snippet
+                var snippet = $("<p>")
+                snippet.text(data[i].snippet)
+                // append everything to the master news div
+                containerDiv.append(newLink)
+                containerDiv.append(newP)
+                containerDiv.append(snippet)
+                $("#newsStories").append(containerDiv)
+
+            }
+            pageNum++
+            callNews()
+        })
+        
+    }
 }
 
+// Get the world stats
 function callAPIWorld () {
     var worldQuery = "https://thevirustracker.com/free-api?global=stats"
 
@@ -27,26 +83,14 @@ function callAPIWorld () {
         $("#totalWorldNewToday").text("New Cases Today: " + data.total_new_cases_today)
         $("#totalWorldDeathsToday").text("New Deaths Today: " + data.total_new_deaths_today)
 
-        callTimeline()
+        callNews()
 
     })
 }
 
 callAPIWorld()
 
-var newsArray = []
-
-function countProperties(obj) {
-    var count = 0;
-
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            ++count;
-    }
-
-    newsArray[0] = count - 1
-}
-
+// Get specific country stats
 function callAPICountry() {
     var country = $("#countrySelector option:selected").val()
     var countryQuery = "https://thevirustracker.com/free-api?countryTotal=" + country
@@ -57,7 +101,6 @@ function callAPICountry() {
     }).then(function(response) {
                 
         var data = response.countrydata[0]
-        var news = response.countrynewsitems[0]
 
         $("#totalCountryCases").text("Total Cases: " + data.total_cases)
         $("#totalCountryActiveCases").text("Active Cases: " + data.total_active_cases)
@@ -66,33 +109,6 @@ function callAPICountry() {
         $("#totalCountryUnresolved").text("Unresolved: " + data.total_unresolved)
         $("#totalCountryNewToday").text("New Cases Today: " + data.total_new_cases_today)
         $("#totalCountryDeathsToday").text("New Deaths Today: " + data.total_new_deaths_today)
-
-        countProperties(news)
-
-        var artId = newsArray[0]
-
-        for (let i = 0; i < 30; i++) {
-            var current = news[artId]
-            // console.log(current)
-
-            var containerDiv = $("<div>")
-            containerDiv.addClass("newsArticle")
-            var newImg = $("<img>")
-            newImg.attr("src", current.image)
-            newImg.addClass("newsPics")
-            var newLink = $("<a>")
-            newLink.attr("href", current.url)
-            newLink.html("<h3>" + current.title + "</h3>")
-            var time = $("<p>")
-            time.html("<span>" + current.time + "</span>")
-
-            containerDiv.append(newImg)
-            containerDiv.append(newLink)
-            containerDiv.append(time)
-            $("#newsStories").append(containerDiv)
-
-            artId--
-        }
 
     })
 }
