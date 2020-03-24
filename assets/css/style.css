@@ -13,6 +13,7 @@ body {
 }
 
 #createdBy {
+    width: 50%;
     margin: 0 24%;
     font-size: 16px;
 }
@@ -49,4 +50,17 @@ a:hover {
 
 .newsArticle span {
     font-style: italic;
+}
+
+@media(max-width: 1024px) {
+    .jumbotron p {width: 70%; margin: 15px 14%;}
+}
+
+@media(max-width: 414px) {
+    .jumbotron p {width: 98%; margin: 15px 1%;}
+}
+
+@media(max-width: 375px) {
+    .jumbotron p {width: 94%; margin: 15px 2.5%;}
+    #createdBy {width: 70%; margin: 15px 14%;}
 }
