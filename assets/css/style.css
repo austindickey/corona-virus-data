@@ -1,7 +1,52 @@
+body {
+    background-image: url(../img/bg.png);
+}
+
+.jumbotron {
+    background-color: #539af7;
+}
+
+.jumbotron p {
+    width: 50%;
+    margin: 15px 24%;
+    font-size: 18px;
+}
+
+#createdBy {
+    margin: 0 24%;
+    font-size: 16px;
+}
+
+#createdBy a {
+    color: #000;
+}
+
+#createdBy a:hover {
+    color: #ec7748;
+    text-decoration: none;
+}
+
 ul {
     list-style: none;
 }
 
-#selectBar {
+#selectBar,
+.card {
     margin-bottom: 30px;
+}
+
+.newsPics {
+    width: 100%;
+}
+
+.newsArticle a {
+    color: #539af7;
+}
+
+a:hover {
+    color: #ec7748;
+}
+
+.newsArticle span {
+    font-style: italic;
 }
