@@ -36,6 +36,10 @@ ul {
     margin-bottom: 30px;
 }
 
+#submit {
+    background-color: #fff;
+}
+
 .newsPics {
     width: 100%;
 }
