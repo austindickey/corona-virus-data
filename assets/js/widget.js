@@ -31,7 +31,6 @@ function callNews() {
             method: "GET"
         }).then(function(response) {
             var data = response.response.docs
-            console.log(data)
 
             for (let i = 0; i < data.length; i++) {
                 // create master article div
@@ -85,11 +84,10 @@ function callAPIWorld () {
         $("#totalWorldNewToday").text("New Cases Today: " + data.total_new_cases_today)
         $("#totalWorldDeathsToday").text("New Deaths Today: " + data.total_new_deaths_today)
 
-        callNews()
-
     })
 }
 
+callNews()
 callAPIWorld()
 
 // Get specific country stats
@@ -103,6 +101,8 @@ function callAPICountry() {
     }).then(function(response) {
                 
         var data = response.countrydata[0]
+
+        console.log("country data: " + data)
 
         $("#totalCountryCases").text("Total Cases: " + data.total_cases)
         $("#totalCountryActiveCases").text("Active Cases: " + data.total_active_cases)
