@@ -67,13 +67,15 @@ function callNews() {
 
 // Get the world stats
 function callAPIWorld () {
-    var worldQuery = "https://thevirustracker.com/free-api?global=stats"
+    var worldQuery = "https://api.thevirustracker.com/free-api?global=stats"
 
     $.ajax({
         url: worldQuery,
         method: "GET"
     }).then(function(response) {
         var data = response.results[0]
+
+        console.log("world data: " + data)
          
         $("#totalWorldCases").text("Total Cases: " + data.total_cases)
         $("#totalWorldActiveCases").text("Active Cases: " + data.total_active_cases)
@@ -93,7 +95,7 @@ callAPIWorld()
 // Get specific country stats
 function callAPICountry() {
     var country = $("#countrySelector option:selected").val()
-    var countryQuery = "https://thevirustracker.com/free-api?countryTotal=" + country
+    var countryQuery = "https://api.thevirustracker.com/free-api?countryTotal=" + country
 
     $.ajax({
         url: countryQuery,
