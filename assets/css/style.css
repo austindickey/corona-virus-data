@@ -42,12 +42,7 @@ ul {
     background-color: #fff;
 }
  
-#submit:hover {
-    background-color: #539af7;
-    color: #fff;
-}
-
-.card-header {
+#submit:hover, .card-header {
     background-color: #539af7;
     color: #fff;
 }
@@ -66,24 +61,6 @@ a:hover {
 
 .newsArticle span {
     font-style: italic;
-}
-
-footer {
-    height: 75px;
-    width: 100%;
-    background-color: #539af7;
-    color: #fff;
-    text-align: center;
-    padding-top: 25px;
-    margin-top: 50px;
-}
-
-footer a {
-    color: #ec7748;
-}
-
-footer a:hover {
-    color: #fff;
 }
 
 @media(max-width: 1024px) {
