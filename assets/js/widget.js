@@ -1,25 +1,18 @@
-// Timeline data is not coming back from the virus tracker
-
-// function callTimeline () {
-//     var timelineQuery = "https://thevirustracker.com/timeline/map-data.json"
-
-//     $.ajax({
-//         url: timelineQuery,
-//         method: "GET"
-//     }).then(function(response) {
-//          console.log(response)
-
-//     })
-// }
-
 // Get today's date
-var today = new Date();
+var today = new Date()
 var dd = String(today.getDate()).padStart(2, '0')
 var mm = String(today.getMonth() + 1).padStart(2, '0')
 var yyyy = today.getFullYear()
 
 today = yyyy + mm + dd
 var pageNum = 0
+
+// Adding commas to data
+function numberWithCommas(number) {
+    var parts = number.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return parts.join(".")
+}
 
 function callNews() {
     if (pageNum < 3) {
@@ -66,25 +59,40 @@ function callNews() {
 
 // Get the world stats
 function callAPIWorld () {
-    var worldQuery = "https://api.thevirustracker.com/free-api?global=stats"
 
-    $.ajax({
-        url: worldQuery,
-        method: "GET"
-    }).then(function(response) {
-        var data = response.results[0]
+    const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://coronavirus-smartable.p.rapidapi.com/stats/v1/global/",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "coronavirus-smartable.p.rapidapi.com",
+            "x-rapidapi-key": "1d79a935fbmsh6ce840778fdfc27p1edc1fjsnfd7dbd504b08"
+        }
+    }
+    
+    $.ajax(settings).done(function (response) {
+        let data = response.stats
 
-        console.log("world data: " + data)
-         
-        $("#totalWorldCases").text("Total Cases: " + data.total_cases)
-        $("#totalWorldActiveCases").text("Active Cases: " + data.total_active_cases)
-        $("#totalWorldRecoverd").text("Recovered: " + data.total_recovered)
-        $("#totalWorldDeaths").text("Deaths: " + data.total_deaths)
-        $("#totalWorldUnresolved").text("Unresolved: " + data.total_unresolved)
-        $("#totalWorldNewToday").text("New Cases Today: " + data.total_new_cases_today)
-        $("#totalWorldDeathsToday").text("New Deaths Today: " + data.total_new_deaths_today)
+        console.log("World Data: " + data)
 
+        // Run all of the data through the commas function
+        let totalConfirmedCases = numberWithCommas(data.totalConfirmedCases)
+        let totalRecoveredCases = numberWithCommas(data.totalRecoveredCases)
+        let totalDeaths = numberWithCommas(data.totalDeaths)
+        let newlyConfirmedCases = numberWithCommas(data.newlyConfirmedCases)
+        let newlyRecoveredCases = numberWithCommas(data.newlyRecoveredCases)
+        let newDeaths = numberWithCommas(data.newDeaths)
+
+        // Append all world data to the page
+        $("#totalConfirmedCases").text("Total Cases: " + totalConfirmedCases)
+        $("#totalRecoveredCases").text("Total Recovered: " + totalRecoveredCases)
+        $("#totalDeaths").text("Total Deaths: " + totalDeaths)
+        $("#newlyConfirmedCases").text("New Cases: " + newlyConfirmedCases)
+        $("#newlyRecoveredCases").text("Newly Recovered: " + newlyRecoveredCases)
+        $("#newDeaths").text("New Deaths: " + newDeaths)
     })
+
 }
 
 callNews()
