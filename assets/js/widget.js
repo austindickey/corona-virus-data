@@ -101,25 +101,38 @@ callAPIWorld()
 // Get specific country stats
 function callAPICountry() {
     var country = $("#countrySelector option:selected").val()
-    var countryQuery = "https://api.thevirustracker.com/free-api?countryTotal=" + country
+    
+    const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://coronavirus-smartable.p.rapidapi.com/stats/v1/" + country + "/",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "coronavirus-smartable.p.rapidapi.com",
+            "x-rapidapi-key": "1d79a935fbmsh6ce840778fdfc27p1edc1fjsnfd7dbd504b08"
+        }
+    }
+    
+    $.ajax(settings).done(function (response) {
+        let data = response.stats
 
-    $.ajax({
-        url: countryQuery,
-        method: "GET"
-    }).then(function(response) {
-                
-        var data = response.countrydata[0]
+        console.log("Country Data: " + data)
 
-        console.log("country data: " + data)
+        // Run all of the data through the commas function
+        let countryConfirmedCases = numberWithCommas(data.totalConfirmedCases)
+        let countryRecoveredCases = numberWithCommas(data.totalRecoveredCases)
+        let countryDeaths = numberWithCommas(data.totalDeaths)
+        let newContryConfirmedCases = numberWithCommas(data.newlyConfirmedCases)
+        let newContryRecoveredCases = numberWithCommas(data.newlyRecoveredCases)
+        let newCountryDeaths = numberWithCommas(data.newDeaths)
 
-        $("#totalCountryCases").text("Total Cases: " + data.total_cases)
-        $("#totalCountryActiveCases").text("Active Cases: " + data.total_active_cases)
-        $("#totalCountryRecoverd").text("Recovered: " + data.total_recovered)
-        $("#totalCountryDeaths").text("Deaths: " + data.total_deaths)
-        $("#totalCountryUnresolved").text("Unresolved: " + data.total_unresolved)
-        $("#totalCountryNewToday").text("New Cases Today: " + data.total_new_cases_today)
-        $("#totalCountryDeathsToday").text("New Deaths Today: " + data.total_new_deaths_today)
-
+        // Append all world data to the page
+        $("#countryConfirmedCases").text("Total Cases: " + countryConfirmedCases)
+        $("#countryRecoveredCases").text("Total Recovered: " + countryRecoveredCases)
+        $("#countryDeaths").text("Total Deaths: " + countryDeaths)
+        $("#newContryConfirmedCases").text("New Cases: " + newContryConfirmedCases)
+        $("#newContryRecoveredCases").text("Newly Recovered: " + newContryRecoveredCases)
+        $("#newCountryDeaths").text("New Deaths: " + newCountryDeaths)
     })
 }
 
